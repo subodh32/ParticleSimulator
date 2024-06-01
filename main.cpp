@@ -16,7 +16,8 @@ int main() {
 
     // Particle P1(Vector2D(100.0f, 100.0f),Vector2D(0,1000), 10.0f);
 
-    int numParticles = 3;
+    int numParticles = 6;
+    float mouse_force = 4000.0f;
 
     // Particle particles[numParticles];
     std::vector<Particle> particles(numParticles);
@@ -25,20 +26,10 @@ int main() {
     {
         // particles[i] = Particle(Vector2D(0.0f, 100.0f), 10.0f);
         //particles at random positions
-        particles[i] = Particle(Vector2D(50 + (10*i), 50), 15.0f);
+        particles[i] = Particle(Vector2D(50 + (50*i), 50), 15.0f);
+        particles[i].setDefaultColor(RED);
+        particles[i].setColor(RED);
     }
-
-    particles[0].setColor(RED); 
-    particles[1].setColor(RED);
-    particles[2].setColor(RED);
-
-    particles[0].setPosition(Vector2D(100, 150));
-    particles[1].setPosition(Vector2D(100, 100));
-    particles[2].setPosition(Vector2D(100, 50));
-
-    particles[0].setLastPosition(particles[0].getPosition());
-    particles[1].setLastPosition(particles[1].getPosition());
-    particles[2].setLastPosition(particles[2].getPosition());
 
     InitWindow(screenWidth, screenHeight, "Raylib Window");
 
@@ -50,9 +41,13 @@ int main() {
 
         DrawFPS(10, 10);
 
-        link_particles(particles[0], particles[1], 50.0f);
-        link_particles(particles[1], particles[2], 50.0f);
-        link_particles(particles[2], particles[0], 50.0f);
+        // link_particles(particles[0], particles[1], 50.0f);
+        // link_particles(particles[1], particles[2], 50.0f);
+
+        for(int i = 0; i < numParticles - 1; i++)
+        {
+            link_particles(particles[i], particles[i+1], 50.0f);
+        }
         
         //on mouse click get mouse position and apply force to particle
         if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
@@ -63,8 +58,11 @@ int main() {
 
             for (int i = 0; i < particles.size(); i++)
             {
-                Vector2D force = (mousePos - particles[i].getPosition()).normalize() * 100.0f;
-                particles[i].setForce(force);
+                if(particles[i].isSelected())
+                {
+                    Vector2D force = (mousePos - particles[i].getPosition()).normalize() * mouse_force;
+                    particles[i].setForce(force);
+                }
             }
         }
         else{
@@ -73,6 +71,36 @@ int main() {
                 particles[i].setForce(Vector2D(0, Gravity));
             }
         }
+
+        //on mouse click select particle
+        if(IsMouseButtonPressed(MOUSE_RIGHT_BUTTON))
+        {
+            Vector2D mousePos;
+            mousePos.setX(GetMouseX());
+            mousePos.setY(GetMouseY());
+
+            for (int i = 0; i < particles.size(); i++)
+            {
+                if((mousePos - particles[i].getPosition()).magnitude() < particles[i].getRadius())
+                {
+                    if(particles[i].isSelected())
+                    {
+                        particles[i].setSelected(false);
+                        particles[i].setColor(particles[i].getDefaultColor());
+                    }
+                    else{
+                        particles[i].setSelected(true);
+                        particles[i].setColor(GREEN);
+                    }
+                }
+                
+            }
+        }
+
+        //on mouse wheel move change mouse_force proportionsally
+        mouse_force += GetMouseWheelMove() * 100.0f;
+        //display mouse_force
+        DrawText(TextFormat("Force: %f", mouse_force), 10, 30, 20, BLACK);
 
         if(IsKeyPressed(KEY_ENTER)){
             //add new particle at mouse position

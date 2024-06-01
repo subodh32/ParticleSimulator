@@ -65,7 +65,7 @@ void Particle::update(float dt)
 
 void Particle::draw() const
 {
-    DrawCircle(position.getX(), position.getY(), radius, color);
+    DrawCircle(position.getX(), position.getY(), radius, currentColor);
 
     //draw the acceleration vector
     DrawLine(position.getX(), position.getY(), position.getX() + acceleration.getX(), position.getY() + acceleration.getY(), RED);
