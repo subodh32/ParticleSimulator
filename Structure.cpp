@@ -34,19 +34,6 @@ void Structure::update(float dt)
     {
         link_particles(*std::get<0>(link), *std::get<1>(link), std::get<2>(link));
     }
-
-    // for(int i = 0; i < particles.size(); i++)
-    // {
-    //     (*particles[i]).update(dt);
-    // }
-}
-
-void Structure::draw() const
-{
-    for(auto particle : particles)
-    {
-        (*particle).draw();
-    }
 }
 
 void Structure::link_particles(Particle& p1, Particle& p2, float seperation_dist)

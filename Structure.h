@@ -21,5 +21,4 @@ public:
     void addLink(int p1, int p2, float seperation_dist);
 
     void update(float dt);
-    void draw() const;
 };

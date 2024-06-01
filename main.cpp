@@ -94,7 +94,6 @@ int main()
         // update and draw particles
 
         car.update(dt);
-        // car.draw();
 
         for (int i = 0; i < particles.size(); i++)
         {
