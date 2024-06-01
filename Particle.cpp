@@ -15,6 +15,15 @@ Particle::Particle(Vector2D pos, float rad)
         acceleration = Vector2D(0,Gravity);
     }
 
+Particle::Particle(Vector2D pos, float rad, Color color){
+    position = pos;
+    radius = rad;
+    lastPosition = position;
+    acceleration = Vector2D(0,Gravity);
+    defaultColor = color;
+    currentColor = color;
+}
+
 Particle::Particle(Vector2D pos, Vector2D acc, float rad)
     : position(pos), acceleration(acc), radius(rad) {
         lastPosition = position;
@@ -68,7 +77,7 @@ void Particle::draw() const
     DrawCircle(position.getX(), position.getY(), radius, currentColor);
 
     //draw the acceleration vector
-    DrawLine(position.getX(), position.getY(), position.getX() + acceleration.getX(), position.getY() + acceleration.getY(), RED);
+    // DrawLine(position.getX(), position.getY(), position.getX() + acceleration.getX(), position.getY() + acceleration.getY(), RED);
 }
 
 void Particle::applyForce(Vector2D force)

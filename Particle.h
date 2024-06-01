@@ -17,6 +17,7 @@ private:
 public:
     Particle();
     Particle(Vector2D pos, float rad);
+    Particle(Vector2D pos, float rad, Color color);
     Particle(Vector2D pos, Vector2D acc, float rad);
 
     ~Particle();
