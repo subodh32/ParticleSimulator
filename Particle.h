@@ -10,8 +10,8 @@ private:
     Vector2D acceleration;
     float radius;
 
-    Color defaultColor = BLUE;
-    Color  currentColor = BLUE;
+    Color default_color = BLUE;
+    Color  current_color = BLUE;
     bool selected = false;
 
 public:
@@ -31,11 +31,11 @@ public:
     void setRadius(float rad);
     void setLastPosition(Vector2D lastPos);
 
-    void setColor(Color color) { currentColor = color; }
-    Color getColor() const { return currentColor; }
+    void setColor(Color color) { current_color = color; }
+    Color getColor() const { return current_color; }
 
-    void setDefaultColor(Color color) { defaultColor = color; }
-    Color getDefaultColor() const { return defaultColor; }
+    void setDefaultColor(Color color) { default_color = color; }
+    Color getDefaultColor() const { return default_color; }
 
     void setSelected(bool sel) { selected = sel; }
     bool isSelected() const { return selected; }

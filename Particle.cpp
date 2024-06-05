@@ -20,8 +20,8 @@ Particle::Particle(Vector2D pos, float rad, Color color){
     radius = rad;
     lastPosition = position;
     acceleration = Vector2D(0,Gravity);
-    defaultColor = color;
-    currentColor = color;
+    default_color = color;
+    current_color = color;
 }
 
 Particle::Particle(Vector2D pos, Vector2D acc, float rad)
@@ -74,7 +74,7 @@ void Particle::update(float dt)
 
 void Particle::draw() const
 {
-    DrawCircle(position.getX(), position.getY(), radius, currentColor);
+    DrawCircle(position.getX(), position.getY(), radius, current_color);
 
     //draw the acceleration vector
     // DrawLine(position.getX(), position.getY(), position.getX() + acceleration.getX(), position.getY() + acceleration.getY(), RED);

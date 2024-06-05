@@ -5,6 +5,7 @@
 #include "Particle.h"
 #include "Globals.h"
 #include "Structure.h"
+#include <math.h>
 
 void link_particles(Particle &p1, Particle &p2, float seperation_dist);
 void on_mouse_click(Particle *p, Vector2D mousePos, float mouse_force);
@@ -19,14 +20,13 @@ int main()
 
     // Particle P1(Vector2D(100.0f, 100.0f),Vector2D(0,1000), 10.0f);
 
-    int numParticles = 10;
+    int num_particles = 4;
     float mouse_force = 4000.0f;
-
-    // Particle particles[numParticles];
-    std::vector<Particle*> particles(numParticles);
+    // Particle particles[num_particles];
+    std::vector<Particle*> particles(num_particles);
 
     // chain
-    for (int i = 0; i < numParticles; i++)
+    for (int i = 0; i < num_particles; i++)
     {
         // particles[i] = Particle(Vector2D(0.0f, 100.0f), 10.0f);
         // particles at random positions
@@ -47,7 +47,8 @@ int main()
     car.addLink(1, 2, 50.0f);
     car.addLink(2, 3, 50.0f);
     car.addLink(0,3,50.0f);
-    car.addLink(0,2,70.711f);
+    //squre root function
+    car.addLink(0,2,sqrt((50.0f*50.0f)+(50.0f*50.0f)));
 
     for(auto p : car.getParticles())
     {
@@ -68,7 +69,7 @@ int main()
         // link_particles(particles[0], particles[1], 50.0f);
         // link_particles(particles[1], particles[2], 50.0f);
 
-        for (int i = 0; i < numParticles - 1; i++)
+        for (int i = 0; i < num_particles - 1; i++)
         {
             link_particles(*particles[i], *particles[i + 1], 50.0f);
         }
